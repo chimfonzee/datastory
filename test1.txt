@@ -1,0 +1,13 @@
+func sampleFunction(table thisAnotherTable) {
+    print(thisAnotherTable)
+    return thisAnotherTable
+}
+
+table sampleTable = input("/target/data/here1.csv")
+table anotherTable = input("/target/data/here2.csv")
+table resultingTable = sampleTable | anotherTable
+print(resultingTable)
+if(resultingTable[10][5] < 600) {
+    print("This is success")
+}
+sampleFunction(anotherTable)

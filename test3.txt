@@ -1,0 +1,23 @@
+func computeTables(table one, table two) {
+    return one | two
+    func computeTables(table one, table two) {
+        return one | two
+    }
+}
+
+table computedTables
+table sampleTable = input("/target/data/here1.csv")
+table anotherTable = input("/target/data/here2.csv")
+if(anotherTable[10][5] < 600) {
+    print("This is success")
+    if(anotherTable[10][5] < 600) {
+        print("This is success")
+    }
+}
+elif(sampleTable[10][5] < 800) {
+    computedTables = computeTables(sampleTable, anotherTable)
+    if(anotherTable[10][5] < 600) {
+        print("This is success")
+    }
+}
+draw('sampleName', sampleTable[1], anotherTable[5], 'line',draw('sampleName', sampleTable[1], anotherTable[5], 'line'))
