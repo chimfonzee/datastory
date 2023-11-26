@@ -1,29 +1,28 @@
 grammar DataStory;
 prog: func* expr* EOF ;
 
-func: FUNC ID LPAREN arglist? RPAREN LCURL expr* (RET (val | condition))? RCURL ;
-arglist: DTYPE ID COMMA arglist | DTYPE ID ;
+func: FUNC ID LPAREN (DTYPE ID (COMMA DTYPE ID)*)? RPAREN LCURL expr* (RET (val | condition)?)? RCURL ;
 
 expr: initialize
     | assignment
     | control
     | loop
     | output
-    | COMMENT 
+    | COMMENT
     | func_call
     | print_call
     | draw_call ;
 
 print_call: PRINT LPAREN val RPAREN ;
 draw_call: DRAW LPAREN val COMMA val COMMA val COMMA STR RPAREN ;
-initialize: DTYPE assignment ;
+initialize: DTYPE ID ASSIGN_OP (val | condition) ;
 assignment: ID ASSIGN_OP (val | condition) ;
 
 control: IF LPAREN condition RPAREN LCURL expr* RCURL elif* else? ;
 elif: ELIF LPAREN condition RPAREN LCURL expr* RCURL ;
 else: ELSE LCURL expr* RCURL ;
 
-loop: FOR LPAREN initialize COMMA condition COMMA assignment RPAREN LCURL expr* RCURL
+loop: FOR LPAREN (initialize | assignment) COMMA condition COMMA assignment RPAREN LCURL expr* RCURL
     | WHILE LPAREN condition RPAREN LCURL expr* RCURL ;
 
 output: PRINT LPAREN (val | condition) RPAREN ;
@@ -36,7 +35,7 @@ val: LPAREN val RPAREN
     | val AND_DOP val
     | val OR_DOP val
     | func_call
-    | ID slicing*
+    | ID slicing?
     | STR
     | INT
     | FLOAT
@@ -53,13 +52,12 @@ condition: NOT_OP condition
     | val EQ_OP val
     | val NEQ_OP val
     | func_call
-    | ID slicing*
+    | ID slicing?
     | TRUE
     | FALSE ;
 slicing: LBRACK val RBRACK
     | LBRACK val COLON val RBRACK ;
-func_call: ID LPAREN idlist RPAREN ;
-idlist: ID COMMA idlist | ID ;
+func_call: ID LPAREN (val (COMMA val)*)? RPAREN ;
 
 FOR: 'for' ;
 IF: 'if' ;
@@ -82,9 +80,10 @@ DTYPE: 'table'
     | 'float'
     | 'int'
     | 'struct' ;
-INT: [0-9][0-9]* ;
-FLOAT: [0-9]+.[0-9]+ ;
-STR: '"' ~["]* '"' ;
+INT: [1-9][0-9]* ;
+FLOAT: [0-9]+.[0-9]+ (SCIENTIFIC [1-9][0-9]*)? ;
+SCIENTIFIC: 'E' [+-] ;
+STR: '"' ~[\n"]* '"' ;
 TRUE: 'true' ;
 FALSE: 'false' ;
 ADD_OP: '+' ;
@@ -113,6 +112,6 @@ COMMA: ',' ;
 COLON: ':' ;
 ID: [A-Za-z][_A-Za-z0-9]* ;
 
-WS : (' ' | '\t')+ -> skip ;
+WS: (' ' | '\t')+ -> skip ;
 NEWLINE: [\r\n]+ -> skip ;
 COMMENT: '#' ~( '\r' | '\n' )* ;

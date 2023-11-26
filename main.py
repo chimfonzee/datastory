@@ -18,3 +18,4 @@ def print_tree(tree, lev):
             print_tree(c, lev + 1)
 
 print_tree(tree, 0)
+tree

@@ -20,4 +20,3 @@ elif(sampleTable[10][5] < 800) {
         print("This is success")
     }
 }
-draw('sampleName', sampleTable[1], anotherTable[5], 'line',draw('sampleName', sampleTable[1], anotherTable[5], 'line'))

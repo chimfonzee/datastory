@@ -26,15 +26,6 @@ class DataStoryListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by DataStoryParser#arglist.
-    def enterArglist(self, ctx:DataStoryParser.ArglistContext):
-        pass
-
-    # Exit a parse tree produced by DataStoryParser#arglist.
-    def exitArglist(self, ctx:DataStoryParser.ArglistContext):
-        pass
-
-
     # Enter a parse tree produced by DataStoryParser#expr.
     def enterExpr(self, ctx:DataStoryParser.ExprContext):
         pass
@@ -158,15 +149,6 @@ class DataStoryListener(ParseTreeListener):
 
     # Exit a parse tree produced by DataStoryParser#func_call.
     def exitFunc_call(self, ctx:DataStoryParser.Func_callContext):
-        pass
-
-
-    # Enter a parse tree produced by DataStoryParser#idlist.
-    def enterIdlist(self, ctx:DataStoryParser.IdlistContext):
-        pass
-
-    # Exit a parse tree produced by DataStoryParser#idlist.
-    def exitIdlist(self, ctx:DataStoryParser.IdlistContext):
         pass
 
 
