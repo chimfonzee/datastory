@@ -1,4 +1,9 @@
 # Generated from DataStory.g4 by ANTLR 4.13.1
+import requests
+from bs4 import BeautifulSoup
+import webbrowser
+import tempfile
+import os
 from antlr4 import *
 if "." in __name__:
     from .DataStoryParser import DataStoryParser
@@ -14,8 +19,10 @@ class DataStoryVisitor(ParseTreeVisitor):
         'float': float,
         'string': str,
         'column': list,
-        'table': dict
+        'table': dict,
+        'bool': bool
     }
+    URL = "http://localhost:8000/analytics/generate_chart"
     temp_store = {}
     data_store = {}
     sign_store = {}
@@ -68,8 +75,19 @@ class DataStoryVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by DataStoryParser#draw_call.
     def visitDraw_call(self, ctx:DataStoryParser.Draw_callContext):
-        return self.visitChildren(ctx)
-
+        data = {
+            'table': self.visit(ctx.val(0)),
+            'y-axis': self.visit(ctx.val(1)),
+            'x-axis': self.visit(ctx.val(2))
+        }
+        res = requests.post(url=self.URL, json=data)
+        soup = BeautifulSoup(res.content.decode("utf-8"), "html.parser")
+        _path = os.path.abspath('temp.html')
+        url = "file://" + "\\\\wsl.localhost\\Ubuntu" + _path
+        with open(_path, 'w+') as f:
+            f.write(str(soup))
+        webbrowser.register("edge", None, webbrowser.BackgroundBrowser("/mnt/c/Program\ Files\ \(x86\)/Microsoft/Edge/Application/msedge.exe"))
+        webbrowser.open_new(url)
 
     # Visit a parse tree produced by DataStoryParser#initialize.
     def visitInitialize(self, ctx:DataStoryParser.InitializeContext):

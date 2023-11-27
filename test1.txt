@@ -5,7 +5,6 @@ func sampleFunction(int something) {
 int val = input("something here")
 table sampleTable = read("sample_table.txt", true)
 print (val)
-val = 10
 if (false) {
     val = 5
     int another = 0
@@ -27,4 +26,5 @@ print(val)
 sampleFunction(val)
 val = 400
 print(val)
-print(sampleTable["something"] & 200)
+print(sampleTable["something"])
+draw(sampleTable, "something", "value", "name")
