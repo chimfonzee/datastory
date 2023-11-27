@@ -1,0 +1,7 @@
+<DTYPE,table><ID,sampleTable><ASSIGN_OP><INPUT><LPAREN><STR><RPAREN>
+<DTYPE,table><ID,anotherTable><ASSIGN_OP><INPUT><LPAREN><STR><RPAREN>
+<DTYPE,table><ID,resultingTable><ASSIGN_OP><ID,sampleTable><ADD_OP><ID,anotherTable>
+<PRINT><LPAREN><ID,resultingTable><RPAREN>
+<IF><LPAREN><ID,resultingTable><LBRACK><INT><RBRACK><LBRACK><INT><RBRACK><LT_OP><INT><RPAREN><LCURL>
+    <PRINT><LPAREN><STR><RPAREN>
+<RCURL>

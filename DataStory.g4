@@ -10,10 +10,8 @@ expr: initialize
     | output
     | COMMENT
     | func_call
-    | print_call
     | draw_call ;
 
-print_call: PRINT LPAREN val RPAREN ;
 draw_call: DRAW LPAREN val COMMA val COMMA val COMMA STR RPAREN ;
 initialize: DTYPE ID ASSIGN_OP (val | condition) ;
 assignment: ID ASSIGN_OP (val | condition) ;
@@ -28,21 +26,21 @@ loop: FOR LPAREN (initialize | assignment) COMMA condition COMMA assignment RPAR
 output: PRINT LPAREN (val | condition) RPAREN ;
 
 val: LPAREN val RPAREN
-    | val ADD_OP val
-    | val SUB_OP val
-    | val MUL_OP val
-    | val DIV_OP val
+    | val POW_OP val
+    | val (MUL_OP | DIV_OP) val
+    | val (ADD_OP | SUB_OP) val
+    | val index
     | val AND_DOP val
     | val OR_DOP val
+    | input_call
     | func_call
-    | ID slicing?
+    | read_call
+    | ID
     | STR
     | INT
-    | FLOAT
-    | INPUT LPAREN STR RPAREN
-    | draw_call ;
-condition: NOT_OP condition
-    | LPAREN condition RPAREN
+    | FLOAT ;
+condition: LPAREN condition RPAREN
+    | NOT_OP condition
     | condition AND_OP condition
     | condition OR_OP condition
     | val LT_OP val
@@ -51,13 +49,15 @@ condition: NOT_OP condition
     | val GTEQ_OP val
     | val EQ_OP val
     | val NEQ_OP val
+    | condition index
     | func_call
-    | ID slicing?
+    | ID
     | TRUE
     | FALSE ;
-slicing: LBRACK val RBRACK
-    | LBRACK val COLON val RBRACK ;
+index: LBRACK (val | val COLON val) RBRACK ;
 func_call: ID LPAREN (val (COMMA val)*)? RPAREN ;
+input_call: INPUT LPAREN val RPAREN ;
+read_call: READ LPAREN val COMMA condition RPAREN ;
 
 FOR: 'for' ;
 IF: 'if' ;
@@ -72,15 +72,13 @@ DRAW: 'draw' ;
 INPUT: 'input' ;
 DTYPE: 'table'
     | 'chart'
-    | 'dataset'
-    | 'row'
     | 'column'
-    | 'story'
     | 'string'
     | 'float'
     | 'int'
-    | 'struct' ;
-INT: [1-9][0-9]* ;
+    | 'bool' ;
+READ: 'read' ;
+INT: [0-9][0-9]* ;
 FLOAT: [0-9]+.[0-9]+ (SCIENTIFIC [1-9][0-9]*)? ;
 SCIENTIFIC: 'E' [+-] ;
 STR: '"' ~[\n"]* '"' ;
@@ -90,6 +88,7 @@ ADD_OP: '+' ;
 SUB_OP: '-' ;
 MUL_OP: '*' ;
 DIV_OP: '/' ;
+POW_OP: '^' ;
 EQ_OP: '==' ;
 NEQ_OP: '!=' ;
 LTEQ_OP: '<=' ;

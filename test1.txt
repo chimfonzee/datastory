@@ -1,13 +1,30 @@
-func sampleFunction(table thisAnotherTable) {
-    print(thisAnotherTable)
-    return thisAnotherTable
+func sampleFunction(int something) {
+    print(something)
 }
 
-table sampleTable = input("/target/data/here1.csv")
-table anotherTable = input("/target/data/here2.csv")
-table resultingTable = sampleTable | anotherTable
-print(resultingTable)
-if(resultingTable[10][5] < 600) {
-    print("This is success")
+int val = input("something here")
+table sampleTable = read("sample_table.txt", true)
+print (val)
+val = 10
+if (false) {
+    val = 5
+    int another = 0
+    print(val)
 }
-sampleFunction(anotherTable)
+elif (false) {
+    val = 400
+}
+elif (true) {
+    val = 600
+}
+elif (val == 10) {
+    val = val * 10
+}
+else {
+    val = 100
+}
+print(val)
+sampleFunction(val)
+val = 400
+print(val)
+print(sampleTable["something"] & 200)

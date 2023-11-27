@@ -35,15 +35,6 @@ class DataStoryListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by DataStoryParser#print_call.
-    def enterPrint_call(self, ctx:DataStoryParser.Print_callContext):
-        pass
-
-    # Exit a parse tree produced by DataStoryParser#print_call.
-    def exitPrint_call(self, ctx:DataStoryParser.Print_callContext):
-        pass
-
-
     # Enter a parse tree produced by DataStoryParser#draw_call.
     def enterDraw_call(self, ctx:DataStoryParser.Draw_callContext):
         pass
@@ -134,12 +125,12 @@ class DataStoryListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by DataStoryParser#slicing.
-    def enterSlicing(self, ctx:DataStoryParser.SlicingContext):
+    # Enter a parse tree produced by DataStoryParser#index.
+    def enterIndex(self, ctx:DataStoryParser.IndexContext):
         pass
 
-    # Exit a parse tree produced by DataStoryParser#slicing.
-    def exitSlicing(self, ctx:DataStoryParser.SlicingContext):
+    # Exit a parse tree produced by DataStoryParser#index.
+    def exitIndex(self, ctx:DataStoryParser.IndexContext):
         pass
 
 
@@ -149,6 +140,24 @@ class DataStoryListener(ParseTreeListener):
 
     # Exit a parse tree produced by DataStoryParser#func_call.
     def exitFunc_call(self, ctx:DataStoryParser.Func_callContext):
+        pass
+
+
+    # Enter a parse tree produced by DataStoryParser#input_call.
+    def enterInput_call(self, ctx:DataStoryParser.Input_callContext):
+        pass
+
+    # Exit a parse tree produced by DataStoryParser#input_call.
+    def exitInput_call(self, ctx:DataStoryParser.Input_callContext):
+        pass
+
+
+    # Enter a parse tree produced by DataStoryParser#read_call.
+    def enterRead_call(self, ctx:DataStoryParser.Read_callContext):
+        pass
+
+    # Exit a parse tree produced by DataStoryParser#read_call.
+    def exitRead_call(self, ctx:DataStoryParser.Read_callContext):
         pass
 
 
